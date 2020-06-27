@@ -1,0 +1,122 @@
+[options]
+allow_bold = true
+#audible_bell = false
+#bold_is_bright = true
+#cell_height_scale = 1.0
+#cell_width_scale = 1.0
+#clickable_url = true
+#dynamic_title = true
+font = Source Code Pro Semibold 10
+#fullscreen = true
+icon_name = terminal
+#mouse_autohide = false
+#scroll_on_output = false
+#scroll_on_keystroke = true
+# Length of the scrollback buffer, 0 disabled the scrollback buffer
+# and setting it to a negative value means "infinite scrollback"
+scrollback_lines = 10000
+#search_wrap = true
+#urgent_on_bell = true
+#hyperlinks = false
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+browser = vivaldi-stable
+
+# "system", "on" or "off"
+#cursor_blink = system
+
+# "block", "underline" or "ibeam"
+#cursor_shape = block
+
+# Hide links that are no longer valid in url select overlay mode
+#filter_unmatched_urls = true
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+# set size hints for the window
+#size_hints = false
+
+# "off", "left" or "right"
+#scrollbar = off
+
+[colors]
+# If both of these are unset, cursor falls back to the foreground color,
+# and cursor_foreground falls back to the background color.
+cursor = #aaaaac
+#cursor_foreground = #dcdccc
+
+foreground = #aaaaac
+foreground_bold = #4e4073
+
+# 20% background transparency (requires a compositor)
+background = rgba(15,15,15,0)
+
+# If unset, will reverse foreground and background
+highlight = #4e4073
+
+# Colors from color0 to color254 can be set
+# black
+color0  = #4e4073
+#color8  = #065184
+
+# red
+#color1  = #3a52c5
+#color9  = #be2a2a
+
+# green
+#color2  = #aaaaac
+#color10 = #c3bf9f
+
+# yellow
+#color3  = #1e5995
+
+#line numbers, keywords
+#color11 = #a8781a
+
+# blue
+#color4  = #506070
+#color12 = #6e6093
+
+# magenta
+#color5  = #356eaf
+
+#strings
+#color13 = #5e8dde
+
+# cyan
+#color6  = #866dd0
+
+#comments
+#color14 = #5f819d
+
+# white
+#color7  = #dcdccc
+#color0=#04070F
+color1=#343C85
+color2=#3B4693
+color3=#545BA2
+color4=#6F79C5
+color5=#7484B6
+color6=#7A86D0
+color7=#C0C7E9
+color8=#868ba3
+color9=#343C85
+color10=#3B4693
+color11=#545BA2
+color12=#6F79C5
+color13=#7484B6
+color14=#7A86D0
+color15=#C0C7E9
+[hints]
+#font = Monospace 12
+#foreground = #dcdccc
+#background = #3f3f3f
+#active_foreground = #e68080
+#active_background = #3f3f3f
+#padding = 2
+#border = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+# vim: ft=dosini cms=#%s

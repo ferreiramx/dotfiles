@@ -1,0 +1,259 @@
+[colors]
+background-main = 0
+background = #600f0f0f
+foreground = #aaaaac 
+foreground2 = #4e4073
+
+[bar/bar1]
+width = 100%
+height = 20
+offset-y = 0
+offset-x = 0
+
+border-top-size = 5
+border-bottom-size = 3
+border-right-size = 7
+border-left-size = 7
+
+bottom = false
+monitor = ${env:screen1}
+override-redirect = false
+
+font-0 = Source Sans Pro:style=Semibold:size=10;3
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;3"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=10;3"
+font-3 = "Font Awesome 5 Brands:pixelsize=10;3"
+font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=6;3"
+font-5 = "Font Awesome 5 Free:style=Regular:pixelsize=6;3"
+font-6 = "Material Icons:size=13;4"
+font-7 = "SauceCodePro Nerd Font:style=Regular:pixelsize=13;3"
+font-8 = Source Sans Pro:style=Bold:size=10;3
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+fixed-center = true
+padding-left = 2 
+padding-right = 2
+module-margin = 2 
+
+modules-center = date
+modules-left = osicon i3 screenshot network apps volume xwindow 
+modules-right = nowplaying cpu memory filesystem networkspeed temperature power 
+
+underline-size = 2
+overline-size = 2
+
+;---------;
+; MODULES ;
+;---------;
+
+[module/osicon]
+type = custom/text
+content =  
+content-padding = 1
+click-right = termite --hold -e neofetch
+click-middle = termite -e yay 
+click-left = ~/.config/rofi/launchers-git/launcher.sh
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:100:...%
+format-prefix = %{O5}
+format-prefix-foreground = ${colors.foreground2}
+
+[module/i3]
+type = internal/i3
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-default = 
+format = <label-state>
+format-background = ${colors.background}
+
+index-sort = true
+enable-scroll = true
+wrapping-scroll = true
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true 
+
+label-mode-padding = 1
+label-mode-background = ${colors.background}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon%
+label-focused-font = 5
+label-focused-padding = 1
+;label-focused-underline = ${colors.foreground2}
+label-focused-foreground = ${colors.foreground2}
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-font = 6
+label-unfocused-padding = 1
+;label-unfocused-background = #4a728b
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-font = 5
+label-visible-padding = 1
+;label-visible-underline = ${colors.secondary}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-font = 5
+label-urgent-padding = 1
+label-urgent_underline = ${colors.foreground}
+
+[module/volume]
+type = internal/pulseaudio
+#sink = alsa_output.pci-0000_2d_00.1.hdmi-stereo-extra3
+sink = bluez_sink.00_16_94_3F_01_27.a2dp_sink
+use-ui-max = false
+interval = 2
+format-volume =  <ramp-volume>    <label-volume>  
+format-muted =  0%
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+format = <ramp> <label>
+label = %percentage%%
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+[module/wlan]
+type = internal/network
+interface = wlp0s26u1u4i2
+interval = 5
+label-connected =  %essid%
+label-disconnected =  Not Connected
+
+[module/cpu]
+type = internal/cpu
+label = %percentage%%
+format-prefix =   %{O8} 
+format-prefix-foreground = ${colors.foreground2}
+format-padding = 3
+
+[module/memory]
+type = internal/memory
+label =  %gb_used%
+format-prefix =  %{O8} 
+format-prefix-foreground = ${colors.foreground2}
+
+[module/networkspeed]
+type = internal/network
+interface = enp39s0 
+label-connected = %{F#4e4073} %{F-} %downspeed% %{F#4e4073}|  %{F-}  %upspeed%
+
+[module/network]
+type = custom/text
+content = 直
+content-padding = 1
+content-foreground = ${colors.foreground}
+click-left = ~/.config/rofi/scripts/network.sh
+
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+mount-1 = /home
+interval = 10
+fixed-values = true
+format-mounted = <label-mounted>
+label-mounted = %{F#4e4073} %{F-} %mountpoint%: %percentage_used%%
+
+[module/power]
+type = custom/text
+content = 
+content-padding = 1
+content-foreground = ${colors.foreground}
+click-left = ~/.config/rofi/scripts/powermenu.sh
+
+[module/screenshot]
+type = custom/text
+content = 
+content-padding = 1
+content-foreground = ${colors.foreground}
+click-left = ~/.config/rofi/scripts/screenshot.sh
+
+[module/apps]
+type = custom/text
+content = 
+content-padding = 1
+content-foreground = ${colors.foreground}
+click-left = ~/.config/rofi/scripts/apps.sh
+
+[module/temperature]
+type = internal/temperature
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 1
+
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
+thermal-zone = 0
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input
+
+; Base temperature for where to start the ramp (in degrees celsius)
+; Default: 0
+base-temperature = 0
+
+; Threshold temperature to display warning label (in degrees celsius)
+; Default: 80
+warn-temperature = 90
+
+format-prefix =  %{O8} 
+format-prefix-foreground = ${colors.foreground2}
+format-padding = 1
+
+[module/date]
+type = internal/date
+
+; Seconds to sleep between updates
+; Default: 1.0
+interval = 1.0
+
+; See "https://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %a, %d %b %Y%
+
+; Optional time format
+time = %H:%M
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt = %A, %d %B %Y
+time-alt = %H:%M:%S
+label = %date%    %time%
+label-font = 9
+
+[module/nowplaying]
+type = custom/script
+exec = while true; do if [ "$(playerctl -p spotify status 2>/dev/null)" != "" ]; then echo " " $(playerctl -p spotify metadata artist) "-" $(playerctl -p spotify metadata title); else echo ""; fi; sleep 1; done
+tail = true
+label = %{F#66bb6a}%{F-}%{O5}%output%
+content-padding = 1
+click-left = playerctl -p spotify previous 
+click-right = playerctl -p spotify next
+click-middle = playerctl -p spotify play-pause
