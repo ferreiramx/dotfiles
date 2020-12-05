@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmpbg="$HOME/pictures/wp/black-wallpaper-1.png"
+tmpbg="$HOME/pictures/wp/ultrawide.png"
 
 # change the color ring colors to leave the middle of the feedback ring
 # transparent and the outside to use either dark or light colors based on the 

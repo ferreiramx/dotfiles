@@ -2,21 +2,28 @@
 background-main = 0
 background = #600f0f0f
 foreground = #aaaaac 
-foreground2 = #4e4073
+purple = #4e4073
+red = #A54242
+olive = #B5BD68
+orange = #DE935F
+turq = #8ABEB7
+blue = #5F819D
+purple-2 = #85678F
+green = #5D9440
 
 [bar/bar1]
 width = 100%
-height = 20
+height = 30
 offset-y = 0
 offset-x = 0
 
-border-top-size = 5
-border-bottom-size = 3
+border-top-size = 3
+border-bottom-size = 1
 border-right-size = 7
 border-left-size = 7
 
 bottom = false
-monitor = ${env:screen1}
+monitor = DisplayPort-1
 override-redirect = false
 
 font-0 = Source Sans Pro:style=Semibold:size=10;3
@@ -28,7 +35,7 @@ font-5 = "Font Awesome 5 Free:style=Regular:pixelsize=6;3"
 font-6 = "Material Icons:size=13;4"
 font-7 = "SauceCodePro Nerd Font:style=Regular:pixelsize=13;3"
 font-8 = Source Sans Pro:style=Bold:size=10;3
-
+font-9 = "aferreira:style=Regular:size=10;3"
 background = ${colors.background}
 foreground = ${colors.foreground}
 
@@ -38,8 +45,8 @@ padding-right = 2
 module-margin = 2 
 
 modules-center = date
-modules-left = osicon i3 screenshot network apps volume xwindow 
-modules-right = nowplaying cpu memory filesystem networkspeed temperature power 
+modules-left = osicon i3 screenshot apps volume xwindow 
+modules-right = nowplaying cpu memory filesystem network-down network-up colortemp power 
 
 underline-size = 2
 overline-size = 2
@@ -53,14 +60,16 @@ type = custom/text
 content =  
 content-padding = 1
 click-right = termite --hold -e neofetch
-click-middle = termite -e yay 
-click-left = ~/.config/rofi/launchers-git/launcher.sh
+click-left = termite -e yay 
+content-foreground = ${colors.blue}
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:100:...%
+label-font = 1
 format-prefix = %{O5}
-format-prefix-foreground = ${colors.foreground2}
+format-prefix-font = 9
+format-prefix-foreground = ${colors.purple}
 
 [module/i3]
 type = internal/i3
@@ -91,8 +100,8 @@ label-mode-background = ${colors.background}
 label-focused = %icon%
 label-focused-font = 5
 label-focused-padding = 1
-;label-focused-underline = ${colors.foreground2}
-label-focused-foreground = ${colors.foreground2}
+;label-focused-underline = ${colors.purple}
+label-focused-foreground = ${colors.purple}
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %icon%
@@ -114,15 +123,18 @@ label-urgent_underline = ${colors.foreground}
 
 [module/volume]
 type = internal/pulseaudio
-#sink = alsa_output.pci-0000_2d_00.1.hdmi-stereo-extra3
+#sink = alsa_output.pci-0000_2d_00.1.hdmi-stereo-extra5
 sink = bluez_sink.00_16_94_3F_01_27.a2dp_sink
 use-ui-max = false
 interval = 2
-format-volume =  <ramp-volume>    <label-volume>  
+format-volume =  <ramp-volume>   <label-volume>  
 format-muted =  0%
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
+click-right = pavucontrol &
+format-muted-foreground = ${colors.red}
+ramp-volume-foreground = ${colors.purple}
 
 [module/backlight]
 type = internal/backlight
@@ -142,28 +154,38 @@ label-disconnected =  Not Connected
 
 [module/cpu]
 type = internal/cpu
-label = %percentage%%
-format-prefix =   %{O8} 
-format-prefix-foreground = ${colors.foreground2}
-format-padding = 3
+label = %percentage:2%%
+label-font = 10
+format-prefix =  
+format-prefix-foreground = ${colors.red}
+format-prefix-padding = 2
+format-underline = ${colors.red}
+format-padding = 1
 
 [module/memory]
 type = internal/memory
 label =  %gb_used%
-format-prefix =  %{O8} 
-format-prefix-foreground = ${colors.foreground2}
+format-prefix =   
+format-prefix-padding = 2
+format-prefix-foreground = ${colors.olive}
+format-underline = ${colors.olive}
+format-padding = 1
 
-[module/networkspeed]
-type = internal/network
-interface = enp39s0 
-label-connected = %{F#4e4073} %{F-} %downspeed% %{F#4e4073}|  %{F-}  %upspeed%
+[module/network-down]
+type = custom/script
+label = %{F#5D9440}%{F-}   %output%
+exec = ~/.config/polybar/network-traffic.sh
+tail = true
+format-underline = ${colors.green}
+format-padding = 1
 
-[module/network]
-type = custom/text
-content = 直
-content-padding = 1
-content-foreground = ${colors.foreground}
-click-left = ~/.config/rofi/scripts/network.sh
+[module/network-up]
+type = custom/script
+label = %{F#DE935F}祝%{F-}   %output%
+exec = ~/.config/polybar/network-traffic-up.sh
+tail = true
+format-underline = ${colors.orange}
+format-padding = 1
 
 [module/filesystem]
 type = internal/fs
@@ -172,28 +194,36 @@ mount-1 = /home
 interval = 10
 fixed-values = true
 format-mounted = <label-mounted>
-label-mounted = %{F#4e4073} %{F-} %mountpoint%: %percentage_used%%
+label-mounted = %{F#5F819D}  %{F-} %percentage_used%%
+format-mounted-padding = 1
+format-mounted-underline = ${colors.blue}
 
 [module/power]
 type = custom/text
 content = 
-content-padding = 1
-content-foreground = ${colors.foreground}
-click-left = ~/.config/rofi/scripts/powermenu.sh
+content-padding = 4
+content-foreground = ${colors.purple}
+content-underline = ${colors.purple}
+click-left = ~/.config/rofi/power/powermenu.sh
 
 [module/screenshot]
 type = custom/text
 content = 
 content-padding = 1
 content-foreground = ${colors.foreground}
-click-left = ~/.config/rofi/scripts/screenshot.sh
+; Screen grab
+click-right = sleep 1; scrot 'screenshot_%Y-%m-%d-%S_$wx$h.png' -e 'mv $f ~/pictures ; viewnior ~/pictures/$f'
+; Window grab
+click-left = sleep 1; scrot -u 'Screenshot_%Y-%m-%d-%S_$wx$h.png' -e 'mv $f ~/pictures ; viewnior ~/pictures/$f'
+; Selection grab
+click-middle= sleep 1; scrot -s 'screenshot_%Y-%m-%d-%S_$wx$h.png' -e 'mv $f ~/pictures ; viewnior ~/pictures/$f' 
 
 [module/apps]
 type = custom/text
 content = 
 content-padding = 1
 content-foreground = ${colors.foreground}
-click-left = ~/.config/rofi/scripts/apps.sh
+click-left = ~/.config/rofi/launchers-git/launcher.sh
 
 [module/temperature]
 type = internal/temperature
@@ -223,9 +253,11 @@ base-temperature = 0
 ; Default: 80
 warn-temperature = 90
 
-format-prefix =  %{O8} 
-format-prefix-foreground = ${colors.foreground2}
+format-prefix =    
+format-prefix-foreground = ${colors.orange}
+format-prefix-padding = 2
 format-padding = 1
+format-underline = ${colors.orange}
 
 [module/date]
 type = internal/date
@@ -257,3 +289,8 @@ content-padding = 1
 click-left = playerctl -p spotify previous 
 click-right = playerctl -p spotify next
 click-middle = playerctl -p spotify play-pause
+
+[module/colortemp]
+type = custom/script
+exec = ~/.config/polybar/gettemp.sh
+interval = 3

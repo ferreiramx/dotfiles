@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export screen1=$(polybar -m|tail -1|sed -e 's/:.*$//g')
-
 # Terminate already running bar instances
 pkill polybar
 
